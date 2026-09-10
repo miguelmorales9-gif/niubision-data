@@ -1,6 +1,5 @@
 {
   "studioKey": "NIUBI",
-  "cloudId": "ff808181a067127101a0889aa45d5ced",
-  "kind": "rest",
+  "kind": "api",
   "clients": []
 }
