@@ -1,0 +1,29 @@
+name: NiuBision cloud
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [nb-cloud]
+permissions:
+  contents: write
+concurrency:
+  group: niubision-cloud
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Merge live buffer into GitHub
+        run: node sync.mjs
+      - name: Save
+        run: |
+          git config user.name "NiuBision cloud"
+          git config user.email "miguel.morales9@gmail.com"
+          git add studio.json
+          git diff --cached --quiet || git commit -m "studio cloud"
+          git push
